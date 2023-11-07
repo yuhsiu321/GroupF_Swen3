@@ -13,3 +13,15 @@ services:
     ports:
       - "8088:8088"
 
+  postgres_db:
+    image: postgres:lastest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'paperless_db'
+    ports:
+      - "5432:5432"
+
+    volumns:
+      - ./postgres_db-data:/var/lib/postgresql/data
