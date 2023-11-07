@@ -28,7 +28,6 @@ public class DocumentEntity {
 
     private String content;
 
-    private List<Integer> tags;
 
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
