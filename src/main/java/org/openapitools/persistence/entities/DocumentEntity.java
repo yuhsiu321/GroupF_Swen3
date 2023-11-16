@@ -29,7 +29,6 @@ public class DocumentEntity {
     private String content;
 
 
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private OffsetDateTime created;
 
@@ -57,5 +56,5 @@ public class DocumentEntity {
     private DocumentTypeEntity documentTypeEntity;
 
     @ManyToMany
-    private List<DocTagEntity> docTags;
+    private List<DocTagEntity> tags;
 }
