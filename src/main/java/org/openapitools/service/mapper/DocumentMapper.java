@@ -43,7 +43,7 @@ public interface DocumentMapper{
 
 
     @Named("wrapInteger")
-    default JsonNullable<Integer> integeToJsonNullable(Integer value) {return JsonNullable.of(value);}
+    default JsonNullable<Integer> integerToJsonNullable(Integer value) {return JsonNullable.of(value);}
     @Named("warpString")
     default JsonNullable<String> stringToJsonNullable(String value) {return JsonNullable.of(value);}
 
