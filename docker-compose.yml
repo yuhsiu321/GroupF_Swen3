@@ -12,19 +12,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8088:8088"
-
-  postgres_db:
+  persistence:
     image: postgres
     restart: always
     ports:
       - "5432:5432"
     volumes:
-      - ./paperless_data:/var/lib/postgresql/data
+      - paperless_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: paperless_db
-
   rabbitmq:
     image: rabbitmq:3.12.8-management
     container_name: paperless-rabbitmq
@@ -34,3 +32,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=paperless
       - RABBITMQ_DEFAULT_PASS=paperless
+
+volumes:
+  paperless_data:
