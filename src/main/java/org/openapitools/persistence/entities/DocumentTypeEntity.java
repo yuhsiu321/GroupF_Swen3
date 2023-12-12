@@ -20,7 +20,6 @@ public class DocumentTypeEntity {
     private Long matchingAlgorithm;
     private Boolean isInsensitive;
 
-    @OneToMany(mappedBy = "documentType")
-    private List<DocumentEntity> documents;
+
 
 }

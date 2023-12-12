@@ -24,11 +24,7 @@ public class CorrespondentEntity {
 
     private Long documentCount;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private OffsetDateTime lastCorrespondence;
 
-    @OneToMany(mappedBy = "correspondent")
-    private Set<DocumentEntity> correspondentDocumentEntities;
 
 
 }

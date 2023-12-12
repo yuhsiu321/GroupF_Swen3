@@ -47,14 +47,5 @@ public class DocumentEntity {
 
     private String archivedFileName;
 
-    @ManyToOne
-    @JoinColumn(name = "correspondent_id")
-    private CorrespondentEntity correspondentEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "document_type_id")
-    private DocumentTypeEntity documentTypeEntity;
-
-    @ManyToMany
-    private List<DocTagEntity> tags;
 }

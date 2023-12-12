@@ -26,7 +26,5 @@ public class DocTagEntity {
     private boolean isInboxTag;
     private long documentCount;
 
-    @ManyToMany
-    private List<DocumentEntity> documents;
 
 }
