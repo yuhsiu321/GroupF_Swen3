@@ -36,7 +36,7 @@ public class DocumentServiceImpl implements DocumentService {
             updateDocumentMetadata(documentDTO, uploadedFileName);
 
             // Save documentDTO (with updated metadata) to the database using the repository
-            DocumentEntity documentToBeSaved = documentMapper.dtoToEntity(documentDTO);
+            DocumentEntity documentToBeSaved = documentMapper.toEntity(documentDTO);
             documentRepository.save(documentToBeSaved);
 
             // Additional logic if needed, such as handling relationships or other operations
@@ -52,7 +52,7 @@ public class DocumentServiceImpl implements DocumentService {
         DocumentEntity documentEntity = documentRepository.findById(id).orElse(null);
         if (documentEntity != null) {
             // If using a mapper to convert Entity to DTO, perform the conversion here
-            return documentMapper.entityToDto(documentEntity);
+            return documentMapper.toDto(documentEntity);
         } else {
             // Handle case where document is not found, maybe return null or throw an exception
             return null;
@@ -63,7 +63,7 @@ public class DocumentServiceImpl implements DocumentService {
     public ResponseEntity<Document> getDocument(Integer id) {
         List<Document> documentDTOS = new ArrayList<>();
         for (DocumentEntity document : documentRepository.findAll()) {
-            documentDTOS.add(documentMapper.entityToDto(document));
+            documentDTOS.add(documentMapper.toDto(document));
         }
         return null;
     }

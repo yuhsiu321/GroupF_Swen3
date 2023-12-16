@@ -8,6 +8,8 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Data
 @Builder
 @NoArgsConstructor

@@ -20,6 +20,4 @@ public class DocumentTypeEntity {
     private Long matchingAlgorithm;
     private Boolean isInsensitive;
 
-
-
 }

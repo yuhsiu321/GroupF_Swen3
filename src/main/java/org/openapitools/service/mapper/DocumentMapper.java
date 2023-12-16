@@ -7,16 +7,15 @@ import org.openapitools.service.model.Document;
 
 import java.util.List;
 
-@org.mapstruct.Mapper
+@Mapper
 public interface DocumentMapper{
 
     DocumentMapper INSTANCE = Mappers.getMapper(DocumentMapper.class);
-    @Mapping(target = "correspondent", source = "correspondent", qualifiedByName = "wrapInteger")
+    /*@Mapping(target = "correspondent", source = "correspondent", qualifiedByName = "wrapInteger")
     @Mapping(target = "documentType", source = "documentType", qualifiedByName = "wrapInteger")
     @Mapping(target = "storagePath", source = "storagePath", qualifiedByName = "wrapInteger")
     @Mapping(target = "title", source = "title", qualifiedByName = "wrapString")
     @Mapping(target = "content", source = "content", qualifiedByName = "wrapString")
-    @Mapping(target = "tags", source = "tags", qualifiedByName = "wrapList")
     @Mapping(target = "created", source = "created")
     @Mapping(target = "createdDate", source = "createdDate")
     @Mapping(target = "modified", source = "modified")
@@ -31,7 +30,6 @@ public interface DocumentMapper{
     @Mapping(target = "storagePath", source = "storagePath", qualifiedByName = "unwrapInteger")
     @Mapping(target = "title", source = "title", qualifiedByName = "unwrapString")
     @Mapping(target = "content", source = "content", qualifiedByName = "unwrapString")
-    @Mapping(target = "tags", source = "tags", qualifiedByName = "unwrapList")
     @Mapping(target = "created", source = "created")
     @Mapping(target = "createdDate", source = "createdDate")
     @Mapping(target = "modified", source = "modified")
@@ -44,7 +42,7 @@ public interface DocumentMapper{
 
     @Named("wrapInteger")
     default JsonNullable<Integer> integerToJsonNullable(Integer value) {return JsonNullable.of(value);}
-    @Named("warpString")
+    @Named("wrapString")
     default JsonNullable<String> stringToJsonNullable(String value) {return JsonNullable.of(value);}
 
     @Named("wrapList")
@@ -57,5 +55,20 @@ public interface DocumentMapper{
 
     @Named("unwrapList")
     default List<Integer> jsonNullableToList(JsonNullable<List<Integer>> value){return value.orElse(null);}
+    */
+    Document toDto(DocumentEntity entity);
+    DocumentEntity toEntity(Document dto);
+
+    default JsonNullable<Integer> integerToJsonNullable(Integer value){return JsonNullable.of(value);}
+    default JsonNullable<String> stringToJsonNullable(String value){return JsonNullable.of(value);}
+
+    default JsonNullable<List<Integer>> listToJsonNullable(List<Integer> value){return JsonNullable.of(value);}
+
+    default Integer jsonNullableToInteger(JsonNullable<Integer> value){return value.orElse(null);}
+    default String jsonNullableToString(JsonNullable<String> value){return value.orElse(null);}
+
+    default List<Integer> jsonNullableToList(JsonNullable<List<Integer>> value){return value.orElse(null);}
+
+
 
 }

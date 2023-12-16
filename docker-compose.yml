@@ -18,7 +18,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - paperless_data:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
