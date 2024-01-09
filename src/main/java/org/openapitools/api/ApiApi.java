@@ -5,73 +5,39 @@
  */
 package org.openapitools.api;
 
-import org.openapitools.service.model.AckTasks200Response;
-import org.openapitools.service.model.AckTasksRequest;
-import org.openapitools.service.model.BulkEditRequest;
-import org.openapitools.service.model.CreateCorrespondentRequest;
-import org.openapitools.service.model.CreateDocumentType200Response;
-import org.openapitools.service.model.CreateGroupRequest;
-import org.openapitools.service.model.CreateSavedViewsRequest;
-import org.openapitools.service.model.CreateStoragePath200Response;
-import org.openapitools.service.model.CreateStoragePathRequest;
-import org.openapitools.service.model.CreateTag200Response;
-import org.openapitools.service.model.CreateTagRequest;
-import org.openapitools.service.model.CreateUISettings200Response;
-import org.openapitools.service.model.CreateUISettingsRequest;
-import org.openapitools.service.model.CreateUserRequest;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.openapitools.service.model.GetCorrespondents200Response;
-import org.openapitools.service.model.GetDocument200Response;
-import org.openapitools.service.model.GetDocumentMetadata200Response;
-import org.openapitools.service.model.GetDocumentSuggestions200Response;
-import org.openapitools.service.model.GetDocumentTypes200Response;
-import org.openapitools.service.model.GetDocuments200Response;
-import org.openapitools.service.model.GetGroups200Response;
-import org.openapitools.service.model.GetSavedViews200Response;
-import org.openapitools.service.model.GetStoragePaths200Response;
-import org.openapitools.service.model.GetTags200Response;
-import org.openapitools.service.model.GetTasks200ResponseInner;
-import org.openapitools.service.model.GetUISettings200Response;
-import org.openapitools.service.model.GetUsers200Response;
-import org.openapitools.service.model.GetUsers200ResponseResultsInner;
-import java.time.OffsetDateTime;
-import org.openapitools.service.model.SelectionData200Response;
-import org.openapitools.service.model.SelectionDataRequest;
-import org.openapitools.service.model.Statistics200Response;
-import org.openapitools.service.model.UpdateCorrespondent200Response;
-import org.openapitools.service.model.UpdateCorrespondentRequest;
-import org.openapitools.service.model.UpdateDocument200Response;
-import org.openapitools.service.model.UpdateDocumentRequest;
-import org.openapitools.service.model.UpdateDocumentType200Response;
-import org.openapitools.service.model.UpdateDocumentTypeRequest;
-import org.openapitools.service.model.UpdateGroup200Response;
-import org.openapitools.service.model.UpdateGroupRequest;
-import org.openapitools.service.model.UpdateStoragePath200Response;
-import org.openapitools.service.model.UpdateStoragePathRequest;
-import org.openapitools.service.model.UpdateTag200Response;
-import org.openapitools.service.model.UpdateTagRequest;
-import org.openapitools.service.model.UpdateUserRequest;
-import org.openapitools.service.model.UserInfo;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import net.sourceforge.tess4j.TesseractException;
+import org.openapitools.service.model.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 import javax.annotation.Generated;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.time.OffsetDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-10T06:36:40.060738Z[Etc/UTC]")
 @Validated
@@ -335,6 +301,11 @@ public interface ApiApi {
     default ResponseEntity<Void> createSavedViews(
         @Parameter(name = "CreateSavedViewsRequest", description = "") @Valid @RequestBody(required = false) CreateSavedViewsRequest createSavedViewsRequest
     ) {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        assert requestAttributes != null;
+        HttpServletResponse resp = ((ServletRequestAttributes) requestAttributes).getResponse();
+
+        resp.setHeader("Access-Control-Allow-Origin","*");
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
@@ -437,9 +408,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<CreateUISettings200Response> createUISettings(
-        @Parameter(name = "CreateUISettingsRequest", description = "") @Valid @RequestBody(required = false) CreateUISettingsRequest createUISettingsRequest
-    ) {
+    default ResponseEntity<CreateUISettings200Response> createUISettings() {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -766,7 +735,7 @@ public interface ApiApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"owner\" : 7, \"archive_serial_number\" : 2, \"notes\" : [ { \"note\" : \"note\", \"created\" : \"created\", \"document\" : 1, \"id\" : 7, \"user\" : 1 }, { \"note\" : \"note\", \"created\" : \"created\", \"document\" : 1, \"id\" : 7, \"user\" : 1 } ], \"added\" : \"added\", \"created\" : \"created\", \"title\" : \"title\", \"content\" : \"content\", \"tags\" : [ 5, 5 ], \"storage_path\" : 5, \"permissions\" : { \"view\" : { \"groups\" : [ 3, 3 ], \"users\" : [ 9, 9 ] }, \"change\" : { \"groups\" : [ 3, 3 ], \"users\" : [ 9, 9 ] } }, \"archived_file_name\" : \"archived_file_name\", \"modified\" : \"modified\", \"correspondent\" : 6, \"original_file_name\" : \"original_file_name\", \"id\" : 0, \"created_date\" : \"created_date\", \"document_type\" : 1 }";
+                    String exampleString = "";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -899,7 +868,7 @@ public interface ApiApi {
         value = "/api/documents/{id}/thumb/",
         produces = { "application/pdf" }
     )
-    default ResponseEntity<org.springframework.core.io.Resource> getDocumentThumb(
+    default ResponseEntity<Boolean> getDocumentThumb(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
         return new ResponseEntity<>(HttpStatus.OK);
@@ -974,7 +943,7 @@ public interface ApiApi {
         value = "/api/documents/",
         produces = { "application/json" }
     )
-    default ResponseEntity<GetDocuments200Response> getDocuments(
+    default ResponseEntity<DocumentQueryResponse> getDocuments(
         @Parameter(name = "Page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "Page", required = false) Integer page,
         @Parameter(name = "page_size", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page_size", required = false) Integer pageSize,
         @Parameter(name = "query", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "query", required = false) String query,
@@ -988,7 +957,30 @@ public interface ApiApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"next\" : 6, \"all\" : [ 5, 5 ], \"previous\" : 1, \"count\" : 0, \"results\" : [ { \"owner\" : 4, \"user_can_change\" : true, \"archive_serial_number\" : 2, \"notes\" : [ { \"note\" : \"note\", \"created\" : \"created\", \"document\" : 1, \"id\" : 7, \"user\" : 1 }, { \"note\" : \"note\", \"created\" : \"created\", \"document\" : 1, \"id\" : 7, \"user\" : 1 } ], \"added\" : \"added\", \"created\" : \"created\", \"title\" : \"title\", \"content\" : \"content\", \"tags\" : [ 3, 3 ], \"storage_path\" : 9, \"archived_file_name\" : \"archived_file_name\", \"modified\" : \"modified\", \"correspondent\" : 2, \"original_file_name\" : \"original_file_name\", \"id\" : 5, \"created_date\" : \"created_date\", \"document_type\" : 7 }, { \"owner\" : 4, \"user_can_change\" : true, \"archive_serial_number\" : 2, \"notes\" : [ { \"note\" : \"note\", \"created\" : \"created\", \"document\" : 1, \"id\" : 7, \"user\" : 1 }, { \"note\" : \"note\", \"created\" : \"created\", \"document\" : 1, \"id\" : 7, \"user\" : 1 } ], \"added\" : \"added\", \"created\" : \"created\", \"title\" : \"title\", \"content\" : \"content\", \"tags\" : [ 3, 3 ], \"storage_path\" : 9, \"archived_file_name\" : \"archived_file_name\", \"modified\" : \"modified\", \"correspondent\" : 2, \"original_file_name\" : \"original_file_name\", \"id\" : 5, \"created_date\" : \"created_date\", \"document_type\" : 7 } ] }";
+                    String exampleString = "{\n" +
+                            "\t\"next\": 6,\n" +
+                            "\t\"all\": [5, 5],\n" +
+                            "\t\"previous\": 1,\n" +
+                            "\t\"count\": 1,\n" +
+                            "\t\"results\": [{\n" +
+                            "\t\t\"owner\": 4,\n" +
+                            "\t\t\"user_can_change\": true,\n" +
+                            "\t\t\"archive_serial_number\": 2,\n" +
+                            "\t\t\"added\": \"added\",\n" +
+                            "\t\t\"created\": \"created\",\n" +
+                            "\t\t\"title\": \"这是一个测试标题\",\n" +
+                            "\t\t\"content\": \"111213131\",\n" +
+                            "\t\t\"tags\": [3, 3],\n" +
+                            "\t\t\"storage_path\": 9,\n" +
+                            "\t\t\"archived_file_name\": \"archived_file_name\",\n" +
+                            "\t\t\"modified\": \"modified\",\n" +
+                            "\t\t\"correspondent\": 2,\n" +
+                            "\t\t\"original_file_name\": \"original_file_name\",\n" +
+                            "\t\t\"id\": 5,\n" +
+                            "\t\t\"created_date\": \"created_date\",\n" +
+                            "\t\t\"document_type\": 7\n" +
+                            "\t}]\n" +
+                            "}";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -1145,6 +1137,13 @@ public interface ApiApi {
                 }
             }
         });
+
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        assert requestAttributes != null;
+        HttpServletResponse resp = ((ServletRequestAttributes) requestAttributes).getResponse();
+
+        resp.setHeader("Access-Control-Allow-Origin","*");
+
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
@@ -1766,7 +1765,7 @@ public interface ApiApi {
         value = "/api/documents/post_document/",
         consumes = { "multipart/form-data" }
     )
-    default ResponseEntity<Void> uploadDocument(
+    default ResponseEntity<Map<Object,Object>> uploadDocument(
         @Parameter(name = "title", description = "") @Valid @RequestParam(value = "title", required = false) String title,
         @Parameter(name = "created", description = "") @Valid @RequestParam(value = "created", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime created,
         @Parameter(name = "document_type", description = "") @Valid @RequestParam(value = "document_type", required = false) Integer documentType,
@@ -1774,8 +1773,23 @@ public interface ApiApi {
         @Parameter(name = "correspondent", description = "") @Valid @RequestParam(value = "correspondent", required = false) Integer correspondent,
         @Parameter(name = "document", description = "") @RequestPart(value = "document", required = false) List<MultipartFile> document
     ) {
-        return new ResponseEntity<>(HttpStatus.OK);
+      return new ResponseEntity<>(new HashMap<>(),HttpStatus.OK);
 
     }
+
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/api/test/"
+    )
+    default ResponseEntity<Map<Object,Object>> test() {
+
+
+        return new ResponseEntity<>(new HashMap<>(),HttpStatus.OK);
+
+    }
+
+
+
 
 }
