@@ -27,7 +27,7 @@ import javax.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-10T06:36:40.060738Z[Etc/UTC]")
 @Controller
-@RequestMapping("${openapi.paperlessRestServer.base-path:}")
+@RequestMapping("api")
 public class WsApiController implements WsApi {
 
     private final NativeWebRequest request;

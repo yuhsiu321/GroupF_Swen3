@@ -267,9 +267,6 @@ public class GetDocuments200ResponseResultsInner {
     return createdDate;
   }
 
-  public void setCreatedDate(String createdDate) {
-    this.createdDate = createdDate;
-  }
 
   public GetDocuments200ResponseResultsInner modified(String modified) {
     this.modified = modified;

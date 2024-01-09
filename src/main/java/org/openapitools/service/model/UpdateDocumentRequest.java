@@ -247,9 +247,6 @@ public class UpdateDocumentRequest {
     return createdDate;
   }
 
-  public void setCreatedDate(String createdDate) {
-    this.createdDate = createdDate;
-  }
 
   public UpdateDocumentRequest modified(String modified) {
     this.modified = modified;
